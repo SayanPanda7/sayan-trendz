@@ -437,18 +437,66 @@ const categoryCount = (category) => `${products.filter((product) => product.cate
 const tagCount = (tag) => `${products.filter((product) => product.tags.includes(tag)).length} Picks`;
 
 export const categories = [
-  { title: 'Jhumkas', image: products.find((product) => product.category === 'Jhumkas')?.images[0], count: categoryCount('Jhumkas') },
-  { title: 'Oxidised Earrings', image: products.find((product) => product.category === 'Oxidised Earrings')?.images[0], count: categoryCount('Oxidised Earrings') },
-  { title: 'Necklaces', image: products.find((product) => product.category === 'Necklaces')?.images[0], count: categoryCount('Necklaces') },
-  { title: 'Rings', image: products.find((product) => product.category === 'Rings')?.images[0], count: categoryCount('Rings') },
-  { title: 'Bangles', image: products.find((product) => product.category === 'Bangles')?.images[0], count: categoryCount('Bangles') },
-  { title: 'Bridal Collection', image: products.find((product) => product.category === 'Bridal Collection')?.images[0], count: categoryCount('Bridal Collection') },
-  { title: 'Korean Jewelry', image: products.find((product) => product.category === 'Korean Jewelry')?.images[0], count: categoryCount('Korean Jewelry') },
-  { title: 'Gift Boxes', image: products.find((product) => product.category === 'Gift Boxes')?.images[0], count: categoryCount('Gift Boxes') },
-  { title: 'New Arrivals', image: products.find((product) => product.tags.includes('newArrival'))?.images[0], count: tagCount('newArrival') },
-  { title: 'Best Sellers', image: products.find((product) => product.tags.includes('bestSeller'))?.images[0], count: tagCount('bestSeller') },
-];
+  {
+    title: 'Jhumkas',
+    image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=800&auto=format&fit=crop',
+    count: categoryCount('Jhumkas'),
+  },
 
+  {
+    title: 'Oxidised Earrings',
+    image: 'https://images.unsplash.com/photo-1635767798638-3e25273a8236?q=80&w=800&auto=format&fit=crop',
+    count: categoryCount('Oxidised Earrings'),
+  },
+
+  {
+    title: 'Necklaces',
+    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop',
+    count: categoryCount('Necklaces'),
+  },
+
+  {
+    title: 'Rings',
+    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=800&auto=format&fit=crop',
+    count: categoryCount('Rings'),
+  },
+
+  {
+    title: 'Bangles',
+    image: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=800&auto=format&fit=crop',
+    count: categoryCount('Bangles'),
+  },
+
+  {
+    title: 'Bridal Collection',
+    image: 'https://images.unsplash.com/photo-1620656798579-1984d6b0a6c4?q=80&w=800&auto=format&fit=crop',
+    count: categoryCount('Bridal Collection'),
+  },
+
+  {
+    title: 'Korean Jewelry',
+    image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800&auto=format&fit=crop',
+    count: categoryCount('Korean Jewelry'),
+  },
+
+  {
+    title: 'Gift Boxes',
+    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=800&auto=format&fit=crop',
+    count: categoryCount('Gift Boxes'),
+  },
+
+  {
+    title: 'New Arrivals',
+    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop',
+    count: tagCount('newArrival'),
+  },
+
+  {
+    title: 'Best Sellers',
+    image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=800&auto=format&fit=crop',
+    count: tagCount('bestSeller'),
+  },
+];
 export const collectionConfigs = [
   {
     id: 'best-sellers',
