@@ -1,6 +1,5 @@
 const jewelryShot = (query, sig, width = 900, height = 1200) =>
-  `https://source.unsplash.com/featured/${width}x${height}/?${encodeURIComponent(query)}&sig=${sig}`;
-
+  `https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=${width}&auto=format&fit=crop`;
 const slugify = (value) =>
   value
     .toLowerCase()
