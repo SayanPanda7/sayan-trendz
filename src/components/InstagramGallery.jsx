@@ -12,7 +12,7 @@ export default function InstagramGallery() {
             <h2 className="mt-3 font-display text-4xl text-luxe-espresso sm:text-5xl">Instagram-worthy boutique moments</h2>
           </div>
           <p className="max-w-md text-sm leading-7 text-luxe-cocoa/70">
-            A visual feed inspired by fashion boutiques and premium social-first stores, styled with soft beige luxe tones.
+            A visual feed inspired by premium Indian jewelry boutiques, bridal styling pages, and luxe gifting moodboards.
           </p>
         </div>
 

@@ -125,7 +125,7 @@ export default function CheckoutPage() {
         amount: response.payment.razorpayOrder.amount,
         currency: response.payment.razorpayOrder.currency,
         name: 'Sayan Trendz',
-        description: 'Luxury fashion checkout',
+        description: 'Luxury jewelry checkout',
         order_id: response.payment.razorpayOrder.id,
         theme: { color: '#271c16' },
         prefill: {

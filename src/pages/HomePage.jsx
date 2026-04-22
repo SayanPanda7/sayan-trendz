@@ -28,8 +28,8 @@ export default function HomePage() {
   return (
     <PageTransition>
       <SeoMeta
-        title="Sayan Trendz | Luxury Fashion eCommerce Platform"
-        description="Discover premium kurtis, ethnic wear, accessories, secure checkout, AI recommendations, and boutique-grade shopping design with Sayan Trendz."
+        title="Sayan Trendz | Luxury Jewelry eCommerce Platform"
+        description="Discover premium Indian fashion jewelry, bridal sparkle, gift boxes, Korean jewelry, secure checkout, and AI recommendations with Sayan Trendz."
       />
 
       <main className="pb-6">
@@ -61,7 +61,7 @@ export default function HomePage() {
             <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
               <div>
                 <p className="text-xs uppercase tracking-[0.32em] text-white/60">Editorial Boutique Note</p>
-                <h2 className="mt-4 font-display text-5xl leading-none">Curated for elevated women’s fashion moments</h2>
+                <h2 className="mt-4 font-display text-5xl leading-none">Curated for elevated jewelry moments</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-white/72">
                   Sayan Trendz now blends premium storefront design with production-ready commerce features including Firebase auth, Razorpay checkout, MongoDB-backed data, AI recommendations, analytics, and admin operations.
                 </p>
@@ -96,7 +96,7 @@ export default function HomePage() {
           <ProductCarouselSection
             id="ai-recommendations"
             title="AI Product Recommendations"
-            subtitle="A premium recommendation engine blending category affinity, fashion tags, and shopper behavior to surface the most relevant boutique styles."
+            subtitle="A premium recommendation engine blending jewelry categories, gifting intent, and shopper behavior to surface the most relevant luxe styles."
             products={aiRecommendations}
           />
         ) : null}

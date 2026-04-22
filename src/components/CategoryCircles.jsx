@@ -12,7 +12,7 @@ export default function CategoryCircles() {
             <h2 className="mt-3 font-display text-4xl text-luxe-espresso sm:text-5xl">Your Boutique Style Circle</h2>
           </div>
           <p className="max-w-md text-sm leading-7 text-luxe-cocoa/70">
-            Discover refined categories styled like a luxury fashion boutique, from short kurtis to festive accessory pairings.
+            Discover refined jewelry categories styled like a luxury boutique, from festive jhumkas to bridal sets and gifting edits.
           </p>
         </div>
 

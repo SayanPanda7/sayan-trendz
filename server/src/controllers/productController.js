@@ -110,3 +110,18 @@ export async function updateProduct(req, res) {
     product,
   });
 }
+
+export async function deleteProduct(req, res) {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    throw new ApiError(404, 'Product not found.');
+  }
+
+  await product.deleteOne();
+
+  res.json({
+    success: true,
+    deletedId: req.params.id,
+  });
+}

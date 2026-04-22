@@ -1,5 +1,5 @@
-const cloud = (photoId, width = 900) =>
-  `https://images.unsplash.com/${photoId}?auto=format&fit=crop&w=${width}&q=80`;
+const jewelryShot = (query, sig, width = 900, height = 1200) =>
+  `https://source.unsplash.com/featured/${width}x${height}/?${encodeURIComponent(query)}&sig=${sig}`;
 
 const slugify = (value) =>
   value
@@ -8,752 +8,591 @@ const slugify = (value) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
 
-const imageSets = [
-  [
-    cloud('photo-1496747611176-843222e1e57c'),
-    cloud('photo-1515886657613-9f3515b0c78f'),
-    cloud('photo-1529139574466-a303027c1d8b'),
-    cloud('photo-1524504388940-b1c1722653e1'),
-  ],
-  [
-    cloud('photo-1483985988355-763728e1935b'),
-    cloud('photo-1487412947147-5cebf100ffc2'),
-    cloud('photo-1492707892479-7bc8d5a4ee93'),
-    cloud('photo-1512436991641-6745cdb1723f'),
-  ],
-  [
-    cloud('photo-1521572163474-6864f9cf17ab'),
-    cloud('photo-1495385794356-15371f348c31'),
-    cloud('photo-1506629905607-d9d4c85b6e49'),
-    cloud('photo-1492106087820-71f1a00d2b11'),
-  ],
-  [
-    cloud('photo-1529139574466-a303027c1d8b'),
-    cloud('photo-1515886657613-9f3515b0c78f'),
-    cloud('photo-1487412947147-5cebf100ffc2'),
-    cloud('photo-1496747611176-843222e1e57c'),
-  ],
-  [
-    cloud('photo-1495385794356-15371f348c31'),
-    cloud('photo-1492707892479-7bc8d5a4ee93'),
-    cloud('photo-1483985988355-763728e1935b'),
-    cloud('photo-1521572163474-6864f9cf17ab'),
-  ],
-  [
-    cloud('photo-1506629905607-d9d4c85b6e49'),
-    cloud('photo-1492106087820-71f1a00d2b11'),
-    cloud('photo-1512436991641-6745cdb1723f'),
-    cloud('photo-1496747611176-843222e1e57c'),
-  ],
-  [
-    cloud('photo-1487412947147-5cebf100ffc2'),
-    cloud('photo-1524504388940-b1c1722653e1'),
-    cloud('photo-1515886657613-9f3515b0c78f'),
-    cloud('photo-1495385794356-15371f348c31'),
-  ],
-  [
-    cloud('photo-1492707892479-7bc8d5a4ee93'),
-    cloud('photo-1521572163474-6864f9cf17ab'),
-    cloud('photo-1496747611176-843222e1e57c'),
-    cloud('photo-1483985988355-763728e1935b'),
-  ],
-  [
-    cloud('photo-1524504388940-b1c1722653e1'),
-    cloud('photo-1492106087820-71f1a00d2b11'),
-    cloud('photo-1506629905607-d9d4c85b6e49'),
-    cloud('photo-1487412947147-5cebf100ffc2'),
-  ],
-  [
-    cloud('photo-1512436991641-6745cdb1723f'),
-    cloud('photo-1496747611176-843222e1e57c'),
-    cloud('photo-1521572163474-6864f9cf17ab'),
-    cloud('photo-1529139574466-a303027c1d8b'),
-  ],
-  [
-    cloud('photo-1492106087820-71f1a00d2b11'),
-    cloud('photo-1483985988355-763728e1935b'),
-    cloud('photo-1515886657613-9f3515b0c78f'),
-    cloud('photo-1492707892479-7bc8d5a4ee93'),
-  ],
-  [
-    cloud('photo-1521572163474-6864f9cf17ab'),
-    cloud('photo-1524504388940-b1c1722653e1'),
-    cloud('photo-1495385794356-15371f348c31'),
-    cloud('photo-1506629905607-d9d4c85b6e49'),
-  ],
-];
-
-const productSeeds = [
+const categoryBlueprints = [
   {
-    id: 1,
-    title: 'Zaria Mirror Work Kurti',
-    category: 'Short Kurtis',
-    fabric: 'Rayon Blend',
-    mrp: 1999,
-    salePrice: 1199,
-    rating: 4.9,
-    reviews: 184,
-    badge: '40% OFF',
-    tags: ['bestSeller', 'trending', 'festival', 'recommended'],
-  },
-  {
-    id: 2,
-    title: 'Noor Floral A-Line Kurti',
-    category: 'Floral Kurtis',
-    fabric: 'Soft Cotton',
-    mrp: 1699,
-    salePrice: 899,
-    rating: 4.8,
-    reviews: 126,
-    badge: 'Summer Pick',
-    tags: ['bestSeller', 'summer', 'recommended'],
-  },
-  {
-    id: 3,
-    title: 'Meher Kalamkari Panel Set',
-    category: 'Kalamkari Collection',
-    fabric: 'Handfeel Viscose',
-    mrp: 2499,
-    salePrice: 1699,
-    rating: 4.7,
-    reviews: 92,
-    badge: 'Artisan Edit',
-    tags: ['premium', 'festival', 'recommended'],
-  },
-  {
-    id: 4,
-    title: 'Ivy Corset Style Kurti',
-    category: 'Corset Kurtis',
-    fabric: 'Structured Cotton Satin',
-    mrp: 1899,
-    salePrice: 1299,
-    rating: 4.8,
-    reviews: 115,
-    badge: 'New',
-    tags: ['newArrival', 'trending', 'recommended'],
-  },
-  {
-    id: 5,
-    title: 'Tara Threadwork Anarkali',
-    category: 'Ethnic Wear',
-    fabric: 'Modal Silk',
-    mrp: 3299,
-    salePrice: 2199,
-    rating: 4.9,
-    reviews: 211,
-    badge: 'Best Seller',
-    tags: ['bestSeller', 'premium', 'festival', 'limited'],
-  },
-  {
-    id: 6,
-    title: 'Sia Summer Cotton Kurti',
-    category: 'New Arrivals',
-    fabric: 'Mulmul Cotton',
-    mrp: 1299,
-    salePrice: 699,
-    rating: 4.6,
-    reviews: 88,
-    badge: 'Flat 46% OFF',
-    tags: ['newArrival', 'summer', 'under499', 'b2g1'],
-  },
-  {
-    id: 7,
-    title: 'Myra Gota Detail Kurta Set',
-    category: 'Premium Collection',
-    fabric: 'Premium Muslin',
-    mrp: 2899,
-    salePrice: 1899,
-    rating: 4.8,
-    reviews: 146,
-    badge: 'Party Ready',
-    tags: ['premium', 'festival', 'limited'],
-  },
-  {
-    id: 8,
-    title: 'Aafreen Dobby Short Kurti',
-    category: 'Short Kurtis',
-    fabric: 'Dobby Cotton',
-    mrp: 999,
-    salePrice: 499,
-    rating: 4.5,
-    reviews: 67,
-    badge: 'Under 499',
-    tags: ['under499', 'summer', 'b2g1'],
-  },
-  {
-    id: 9,
-    title: 'Elara Festive Organza Set',
-    category: 'Festival Special',
-    fabric: 'Organza & Lining',
-    mrp: 3899,
-    salePrice: 2599,
-    rating: 4.9,
-    reviews: 139,
-    badge: 'Limited Stock',
-    tags: ['festival', 'premium', 'limited'],
-  },
-  {
-    id: 10,
-    title: 'Rhea Embroidered Co-ord',
-    category: 'New Arrivals',
-    fabric: 'Cotton Linen',
-    mrp: 2299,
-    salePrice: 1499,
-    rating: 4.7,
-    reviews: 102,
-    badge: 'Trending',
-    tags: ['newArrival', 'trending', 'recommended'],
-  },
-  {
-    id: 11,
-    title: 'Kiara Pleated Flared Kurti',
-    category: 'Ethnic Wear',
-    fabric: 'Roman Silk',
-    mrp: 1799,
-    salePrice: 999,
-    rating: 4.7,
-    reviews: 84,
-    badge: 'Online Exclusive',
-    tags: ['trending', 'summer', 'b2g1'],
-  },
-  {
-    id: 12,
-    title: 'Sana Printed Everyday Kurti',
-    category: 'Floral Kurtis',
-    fabric: 'Soft Rayon',
-    mrp: 999,
-    salePrice: 549,
-    rating: 4.6,
-    reviews: 152,
-    badge: 'Staff Favorite',
-    tags: ['bestSeller', 'under499', 'b2g1'],
-  },
-  {
-    id: 13,
-    title: 'Inaaya Handblock Midi Kurti',
-    category: 'Kalamkari Collection',
-    fabric: 'Handblock Cotton',
-    mrp: 1599,
-    salePrice: 999,
-    rating: 4.8,
-    reviews: 73,
-    badge: 'Crafted',
-    tags: ['trending', 'summer', 'recommended'],
-  },
-  {
-    id: 14,
-    title: 'Nysa Schiffli Luxe Kurti',
-    category: 'Premium Collection',
-    fabric: 'Schiffli Cotton',
-    mrp: 2199,
-    salePrice: 1499,
-    rating: 4.8,
-    reviews: 132,
-    badge: 'Premium',
-    tags: ['premium', 'newArrival', 'recommended'],
-  },
-  {
-    id: 15,
-    title: 'Amara Palazzo Kurta Set',
-    category: 'Ethnic Wear',
-    fabric: 'Viscose Blend',
-    mrp: 2699,
-    salePrice: 1699,
-    rating: 4.7,
-    reviews: 96,
-    badge: 'Buy 2 Get 1',
-    tags: ['b2g1', 'trending', 'premium'],
-  },
-  {
-    id: 16,
-    title: 'Veda Belted Fusion Kurti',
-    category: 'Corset Kurtis',
-    fabric: 'Structured Crepe',
-    mrp: 1899,
-    salePrice: 1099,
-    rating: 4.6,
-    reviews: 68,
-    badge: 'Fusion Fit',
-    tags: ['trending', 'newArrival', 'recommended'],
-  },
-  {
-    id: 17,
-    title: 'Leher Beige Festive Suit Set',
-    category: 'Festival Special',
-    fabric: 'Jacquard Blend',
-    mrp: 3499,
-    salePrice: 2299,
-    rating: 4.9,
-    reviews: 172,
-    badge: 'Almost Gone',
-    tags: ['festival', 'limited', 'premium'],
-  },
-  {
-    id: 18,
-    title: 'Rumi Statement Earrings',
-    category: 'Accessories',
-    fabric: 'Gold Tone Alloy',
-    mrp: 899,
-    salePrice: 399,
-    rating: 4.5,
-    reviews: 58,
-    badge: 'Accessorise',
-    tags: ['under499', 'recommended', 'b2g1'],
+    category: 'Jhumkas',
+    subcategory: 'Jhumkas',
     sizes: ['One Size'],
-  },
-  {
-    id: 19,
-    title: 'Hazel Potli Bag',
-    category: 'Accessories',
-    fabric: 'Embellished Satin',
-    mrp: 1499,
-    salePrice: 899,
-    rating: 4.7,
-    reviews: 81,
-    badge: 'Wedding Edit',
-    tags: ['festival', 'recommended', 'limited'],
-    sizes: ['One Size'],
-  },
-  {
-    id: 20,
-    title: 'Naina Brocade Jacket Kurti',
-    category: 'Premium Collection',
-    fabric: 'Brocade & Viscose',
-    mrp: 3199,
-    salePrice: 2099,
-    rating: 4.8,
-    reviews: 117,
-    badge: 'Luxury Edit',
-    tags: ['premium', 'festival', 'bestSeller'],
-  },
-  {
-    id: 21,
-    title: 'Avni Chanderi Straight Kurta',
-    category: 'Ethnic Wear',
-    fabric: 'Chanderi Blend',
-    mrp: 2399,
-    salePrice: 1599,
-    rating: 4.7,
-    reviews: 104,
-    badge: 'Wedding Season',
-    tags: ['premium', 'festival', 'recommended'],
-  },
-  {
-    id: 22,
-    title: 'Tara Rose Gold Juttis',
-    category: 'Accessories',
-    fabric: 'Vegan Leather',
-    mrp: 1299,
-    salePrice: 699,
-    rating: 4.5,
-    reviews: 63,
-    badge: 'Style Add-On',
-    tags: ['summer', 'recommended', 'b2g1'],
-    sizes: ['36', '37', '38', '39', '40'],
-  },
-  {
-    id: 23,
-    title: 'Aisha Linen Blend Kurti',
-    category: 'New Arrivals',
-    fabric: 'Linen Cotton',
-    mrp: 1499,
-    salePrice: 899,
-    rating: 4.6,
-    reviews: 77,
-    badge: 'Just In',
-    tags: ['newArrival', 'summer', 'recommended'],
-  },
-  {
-    id: 24,
-    title: 'Sitara Sequined Festive Kurti',
-    category: 'Festival Special',
-    fabric: 'Georgette',
-    mrp: 2299,
-    salePrice: 1499,
-    rating: 4.8,
-    reviews: 134,
-    badge: 'Bestseller',
-    tags: ['festival', 'bestSeller', 'limited'],
-  },
-  {
-    id: 25,
-    title: 'Dahlia Floral Tiered Kurti',
-    category: 'Floral Kurtis',
-    fabric: 'Mul Cotton',
-    mrp: 1599,
-    salePrice: 999,
-    rating: 4.7,
-    reviews: 91,
-    badge: 'Trending Print',
-    tags: ['trending', 'summer', 'recommended'],
-  },
-  {
-    id: 26,
-    title: 'Amaira Mulmul Summer Set',
-    category: 'Summer Collection',
-    fabric: 'Mulmul',
-    mrp: 1999,
-    salePrice: 1199,
-    rating: 4.7,
-    reviews: 108,
-    badge: 'Lightweight Luxe',
-    tags: ['summer', 'bestSeller', 'b2g1'],
-  },
-  {
-    id: 27,
-    title: 'Ruhi Lace Trim Short Kurti',
-    category: 'Short Kurtis',
-    fabric: 'Cotton Slub',
-    mrp: 1199,
-    salePrice: 649,
-    rating: 4.5,
-    reviews: 59,
-    badge: 'Easy Chic',
-    tags: ['under499', 'newArrival', 'b2g1'],
-  },
-  {
-    id: 28,
-    title: 'Zara Mirror Sling Bag',
-    category: 'Accessories',
-    fabric: 'Mirror Embellished Faux Leather',
-    mrp: 1799,
-    salePrice: 1199,
-    rating: 4.6,
-    reviews: 49,
-    badge: 'Limited Edit',
-    tags: ['limited', 'festival', 'recommended'],
-    sizes: ['One Size'],
-  },
-  {
-    id: 29,
-    title: 'Esha Kalamkari Cape Set',
-    category: 'Kalamkari Collection',
-    fabric: 'Art Silk',
-    mrp: 2999,
-    salePrice: 1999,
-    rating: 4.8,
-    reviews: 88,
-    badge: 'Statement Set',
-    tags: ['premium', 'festival', 'recommended'],
-  },
-  {
-    id: 30,
-    title: 'Pari Cotton Flex Kurti',
-    category: 'Summer Collection',
-    fabric: 'Cotton Flex',
-    mrp: 999,
-    salePrice: 479,
-    rating: 4.4,
-    reviews: 64,
-    badge: 'Under 499',
-    tags: ['under499', 'summer', 'recommended'],
-  },
-  {
-    id: 31,
-    title: 'Aabha Embellished Sharara Set',
-    category: 'Premium Collection',
-    fabric: 'Silk Blend',
-    mrp: 4199,
-    salePrice: 2899,
-    rating: 4.9,
-    reviews: 145,
-    badge: 'Couture Feel',
-    tags: ['premium', 'festival', 'limited', 'bestSeller'],
-  },
-  {
-    id: 32,
-    title: 'Noorani Premium Tissue Set',
-    category: 'Premium Collection',
-    fabric: 'Tissue Silk',
-    mrp: 4599,
-    salePrice: 3199,
-    rating: 4.9,
-    reviews: 163,
-    badge: 'Luxe Drop',
-    tags: ['premium', 'newArrival', 'limited', 'recommended'],
-  },
-  {
-    id: 33,
-    title: 'Misha Ruffle Hem Kurti',
-    category: 'New Arrivals',
-    fabric: 'Soft Crepe',
-    mrp: 1499,
-    salePrice: 849,
-    rating: 4.6,
-    reviews: 55,
-    badge: 'Fresh Arrival',
-    tags: ['newArrival', 'trending', 'summer'],
-  },
-  {
-    id: 34,
-    title: 'Saisha Festive Tassel Kurta',
-    category: 'Festival Special',
-    fabric: 'Premium Rayon',
-    mrp: 1899,
-    salePrice: 1299,
-    rating: 4.7,
-    reviews: 112,
-    badge: 'Fast Moving',
-    tags: ['festival', 'limited', 'recommended'],
-  },
-  {
-    id: 35,
-    title: 'Mia Stonework Bracelet Set',
-    category: 'Accessories',
-    fabric: 'Mixed Metal',
-    mrp: 699,
-    salePrice: 349,
-    rating: 4.4,
-    reviews: 41,
-    badge: 'Gift Pick',
-    tags: ['under499', 'b2g1', 'recommended'],
-    sizes: ['One Size'],
-  },
-  {
-    id: 36,
-    title: 'Fiza Embroidered Cape Kurti',
-    category: 'Ethnic Wear',
-    fabric: 'Viscose Georgette',
-    mrp: 2799,
-    salePrice: 1799,
-    rating: 4.8,
-    reviews: 97,
-    badge: 'Editor Pick',
-    tags: ['bestSeller', 'premium', 'recommended'],
-  },
-];
-
-export const products = productSeeds.map((product, index) => {
-  const gallery = imageSets[index % imageSets.length];
-  const sizes = product.sizes ?? ['XS', 'S', 'M', 'L', 'XL'];
-
-  return {
-    ...product,
-    slug: slugify(product.title),
-    images: gallery,
-    primaryImage: gallery[0],
-    secondaryImage: gallery[1],
-    sizes,
-    colorways:
-      product.category === 'Accessories' ? ['Antique Gold', 'Sandstone'] : ['Ivory', 'Rosewood', 'Mocha'],
-    emi: `EMI from ₹${Math.max(99, Math.round(product.salePrice / 6))}/month`,
-    stockLabel: product.tags.includes('limited') ? 'Only 5 left in your size' : 'Ready to ship within 24 hours',
-    description: `A polished ${product.category.toLowerCase()} essential with elevated tailoring, premium finishings, and a boutique-inspired silhouette designed for day-to-night dressing.`,
-    details: [
-      `Premium ${product.fabric.toLowerCase()} construction with soft lining where needed`,
-      'Elegant cut for a flattering drape and premium boutique fit',
-      'Thoughtful finishing touches for a luxe, occasion-ready feel',
+    basePrice: 1299,
+    range: 950,
+    keywords: [
+      'indian jhumka earrings luxury jewellery',
+      'kundan jhumka earrings close up',
+      'pearl jhumka indian festive jewellery',
+      'meenakari jhumka earrings product',
     ],
-    washCare:
-      product.category === 'Accessories'
-        ? ['Store in a dust pouch', 'Wipe gently with a soft cloth', 'Keep away from moisture']
-        : ['Gentle hand wash separately', 'Do not wring or soak', 'Steam inside out for a polished finish'],
-    shipping: ['Free shipping on prepaid orders', 'Express dispatch in metro cities', '7-day easy exchange'],
-    offers: ['Flat 10% OFF on first order', 'Buy 2 Get 1 Free on selected styles', 'Extra 5% OFF on prepaid checkout'],
-  };
-});
+    materials: ['22K Gold Plated Alloy', 'Kundan & Pearl Work', 'Meenakari Finish', 'Hand-set Stones'],
+    colors: ['Antique Gold', 'Pearl White', 'Ruby Red'],
+    names: [
+      'Aadhira Pearl Kundan Jhumkas',
+      'Meher Lotus Meenakari Jhumkas',
+      'Svara Temple Coin Jhumkas',
+      'Ziya Chand Pearl Jhumkas',
+      'Ira Mirror Festive Jhumkas',
+      'Noor Antique Dome Jhumkas',
+      'Ruhani Filigree Bell Jhumkas',
+      'Tara Navratri Mirror Jhumkas',
+      'Kiara Ruby Drop Jhumkas',
+      'Mira Gota Pearl Jhumkas',
+      'Eshani Polki Tassel Jhumkas',
+      'Lavanya Bridal Pearl Jhumkas',
+      'Aarohi Kundan Flare Jhumkas',
+      'Sitara Statement Jhumkas',
+    ],
+  },
+  {
+    category: 'Oxidised Earrings',
+    subcategory: 'Oxidised Earrings',
+    sizes: ['One Size'],
+    basePrice: 799,
+    range: 750,
+    keywords: [
+      'oxidised silver earrings indian jewellery',
+      'tribal oxidised earrings close up',
+      'boho oxidised danglers jewelry',
+      'oxidised earrings product photography',
+    ],
+    materials: ['Oxidised Silver Finish', 'German Silver Alloy', 'Coin Detail Work', 'Hand-carved Metal'],
+    colors: ['Oxidised Silver', 'Charcoal', 'Antique Grey'],
+    names: [
+      'Tribal Moon Oxidised Earrings',
+      'Lotus Coin Oxidised Danglers',
+      'Vintage Peacock Oxidised Earrings',
+      'Phool Patti Silver Drops',
+      'Desert Mirror Oxidised Earrings',
+      'Chand Tara Oxidised Danglers',
+      'Nomad Bell Silver Earrings',
+      'Rustic Temple Oxidised Earrings',
+      'Boho Layered Coin Drops',
+      'Noor Afghani Oxidised Earrings',
+      'Jalsa Silver Charm Earrings',
+      'Raahi Engraved Oxidised Earrings',
+      'Falak Crescent Silver Drops',
+      'Sahiba Tribal Tassel Earrings',
+    ],
+  },
+  {
+    category: 'Necklaces',
+    subcategory: 'Necklaces & Pearl Sets',
+    sizes: ['One Size'],
+    basePrice: 1899,
+    range: 2600,
+    keywords: [
+      'indian necklace set jewellery luxury',
+      'pearl choker necklace set product',
+      'kundan necklace jewellery close up',
+      'bridal necklace set indian jewellery',
+    ],
+    materials: ['Kundan Setting', 'Baroque Pearls', 'Polki Stones', 'Gold Tone Alloy'],
+    colors: ['Champagne Gold', 'Pearl White', 'Emerald Green'],
+    names: [
+      'Anaya Pearl Choker Necklace Set',
+      'Rajwadi Kundan Necklace',
+      'Mogra Layered Pearl Set',
+      'Emerald Polki Necklace Set',
+      'Gulnaar Temple Necklace',
+      'Ivory Drop Bridal Necklace',
+      'Noor Statement Collar Necklace',
+      'Tvastra Pearl Cascade Necklace',
+      'Maharani Festive Necklace Set',
+      'Leher Coin Charm Necklace',
+      'Dhwani Minimal Pendant Necklace',
+      'Sia Baroque Pearl Collar Set',
+      'Zariya Double Layer Kundan Set',
+      'Taraani Pearl Rani Haar',
+    ],
+  },
+  {
+    category: 'Rings',
+    subcategory: 'Rings',
+    sizes: ['6', '7', '8'],
+    basePrice: 599,
+    range: 950,
+    keywords: [
+      'indian statement ring jewellery product',
+      'adjustable kundan ring close up',
+      'pearl cocktail ring jewellery',
+      'bridal ring product photography',
+    ],
+    materials: ['Adjustable Alloy Base', 'Kundan Stone Setting', 'Pearl Embellishment', 'Gold Tone Finish'],
+    colors: ['Antique Gold', 'Pearl White', 'Rose Gold'],
+    names: [
+      'Ava Floral Kundan Ring',
+      'Misha Pearl Cocktail Ring',
+      'Noor Adjustable Polki Ring',
+      'Jiya Lotus Statement Ring',
+      'Rhea Mirror Festive Ring',
+      'Eira Emerald Accent Ring',
+      'Aroha Temple Ring',
+      'Kiara Bridal Cluster Ring',
+      'Suhana Meenakari Ring',
+      'Maya Open Cuff Ring',
+      'Meher Crystal Bloom Ring',
+      'Inaya Pearl Drop Ring',
+    ],
+  },
+  {
+    category: 'Bangles',
+    subcategory: 'Bangles & Kadas',
+    sizes: ['2.4', '2.6', '2.8'],
+    basePrice: 1299,
+    range: 2200,
+    keywords: [
+      'indian bangles jewellery product',
+      'kundan bangles set close up',
+      'bridal kada bangles luxury',
+      'gold bangles product photography',
+    ],
+    materials: ['Gold Tone Alloy', 'Kundan Detailing', 'Pearl Handwork', 'Stone Stud Finish'],
+    colors: ['Gold', 'Pearl White', 'Ruby Red'],
+    names: [
+      'Aabha Kundan Bangle Stack',
+      'Riva Pearl Kada Set',
+      'Noor Bridal Stone Bangles',
+      'Sitara Textured Gold Bangles',
+      'Anika Temple Kada Pair',
+      'Myra Meenakari Bangle Set',
+      'Ishaani Pearl Line Bangles',
+      'Abeer Festive Kada Stack',
+      'Taraani Mirror Stone Bangles',
+      'Sana Antique Gold Bangles',
+      'Ruhi Wedding Kada Duo',
+      'Zeenat Deluxe Bangle Set',
+    ],
+  },
+  {
+    category: 'Bridal Collection',
+    subcategory: 'Bridal Collection',
+    sizes: ['One Size'],
+    basePrice: 4999,
+    range: 6200,
+    keywords: [
+      'indian bridal jewellery set luxury',
+      'kundan bridal necklace set product',
+      'bridal jewelry indian wedding close up',
+      'polki bridal jewellery photography',
+    ],
+    materials: ['Premium Polki Finish', 'Kundan & Pearl Work', 'Statement Stone Setting', 'Bridal Gold Tone Alloy'],
+    colors: ['Royal Gold', 'Pearl White', 'Emerald Green'],
+    names: [
+      'Maharani Polki Bridal Set',
+      'Saanjh Kundan Bridal Necklace Set',
+      'Rajlaxmi Pearl Bridal Combo',
+      'Noor Mahal Wedding Choker Set',
+      'Heer Rani Haar Bridal Set',
+      'Ameera Bridal Matha Patti Combo',
+      'Veda Wedding Polki Layer Set',
+      'Jannat Bridal Pearl Choker Set',
+      'Sitara Rajwadi Bridal Ensemble',
+      'Anvika Wedding Heritage Set',
+      'Meher Bridal Jadau Collection',
+      'Noorani Dulhan Statement Set',
+      'Eshaal Luxury Bridal Combo',
+      'Zarqaa Pearl Polki Bridal Set',
+    ],
+  },
+  {
+    category: 'Korean Jewelry',
+    subcategory: 'Korean Jewelry & Anklets',
+    sizes: ['One Size'],
+    basePrice: 499,
+    range: 900,
+    keywords: [
+      'korean jewelry minimal gold product',
+      'korean pearl earrings jewelry close up',
+      'minimal anklet jewelry product',
+      'cute korean necklace bracelet set',
+    ],
+    materials: ['18K Gold Tone Finish', 'Minimal Alloy Base', 'Pearl Accent', 'Stainless Steel Chain'],
+    colors: ['Soft Gold', 'Pearl White', 'Blush Rose'],
+    names: [
+      'Luna Bow Korean Earrings',
+      'Miso Heart Charm Necklace',
+      'Yuri Pearl Drop Earrings',
+      'Sora Butterfly Anklet',
+      'Hana Layered Chain Bracelet',
+      'Nari Crystal Bow Ring',
+      'Eun Clover Pendant Necklace',
+      'Mina Star Drop Earrings',
+      'Jia Pearl Anklet Duo',
+      'Ara Minimal Hoop Set',
+      'Seo Ribbon Charm Bracelet',
+      'Nabi Heart Pearl Set',
+    ],
+  },
+  {
+    category: 'Gift Boxes',
+    subcategory: 'Gift Boxes & Combo Sets',
+    sizes: ['One Size'],
+    basePrice: 1699,
+    range: 3200,
+    keywords: [
+      'jewelry gift box luxury product',
+      'festive jewellery hamper gift box',
+      'bridal jewelry gift box product',
+      'premium accessories gift set flatlay',
+    ],
+    materials: ['Curated Multi-piece Set', 'Velvet Box Packaging', 'Premium Gifting Sleeve', 'Mixed Finish Jewellery'],
+    colors: ['Champagne Gold', 'Velvet Beige', 'Midnight Black'],
+    names: [
+      'Saanvi Festive Gift Box',
+      'Pearl Muse Jewelry Gift Set',
+      'Bridal Glow Gift Hamper',
+      'Classic Gold Combo Box',
+      'Korean Charm Gift Box',
+      'Sisterhood Luxe Gifting Set',
+      'Wedding Guest Jewelry Box',
+      'Celebration Essentials Gift Set',
+      'Noor Premium Combo Gift Box',
+      'Festive Sparkle Jewelry Trunk',
+    ],
+  },
+];
 
-export const announcements = ['Free Shipping', 'Summer Sale Live', 'Flat 50% OFF', 'New Luxe Drops Every Friday'];
+const badgeFromTags = (tags) => {
+  if (tags.includes('bestSeller')) {
+    return 'Best Seller';
+  }
+
+  if (tags.includes('newArrival')) {
+    return 'New';
+  }
+
+  if (tags.includes('limited')) {
+    return 'Limited Edition';
+  }
+
+  return 'Trending';
+};
+
+const sizesByCategory = {
+  Rings: ['6', '7', '8'],
+  Bangles: ['2.4', '2.6', '2.8'],
+};
+
+const buildGallery = (query, seed) => [
+  jewelryShot(`${query}, luxury indian jewellery product`, seed),
+  jewelryShot(`${query}, closeup jewellery shot`, seed + 80),
+  jewelryShot(`${query}, styled flatlay`, seed + 160),
+  jewelryShot(`${query}, fashion accessories editorial`, seed + 240),
+];
+
+const buildTags = (category, index) => {
+  const tags = ['recommended'];
+
+  if (index % 2 === 0) {
+    tags.push('trending');
+  }
+
+  if (index % 3 === 0) {
+    tags.push('newArrival');
+  }
+
+  if (index % 4 === 0) {
+    tags.push('bestSeller');
+  }
+
+  if (index % 5 === 0) {
+    tags.push('limited');
+  }
+
+  if (['Jhumkas', 'Oxidised Earrings', 'Necklaces', 'Bridal Collection', 'Gift Boxes'].includes(category)) {
+    tags.push('festival');
+  }
+
+  if (category === 'Bridal Collection') {
+    tags.push('bridal', 'premium');
+  }
+
+  if (category === 'Korean Jewelry') {
+    tags.push('korean');
+  }
+
+  if (category === 'Gift Boxes') {
+    tags.push('giftSet');
+  }
+
+  return [...new Set(tags)];
+};
+
+export const products = categoryBlueprints.flatMap((blueprint, blueprintIndex) =>
+  blueprint.names.map((name, index) => {
+    const id = blueprintIndex * 100 + index + 1;
+    const price = blueprint.basePrice + ((index * 173 + blueprintIndex * 91) % blueprint.range);
+    const oldPrice = price + 300 + ((index * 131 + blueprintIndex * 67) % Math.max(Math.floor(blueprint.range * 0.8), 400));
+    const rating = Number((4.4 + ((index + blueprintIndex) % 6) * 0.1).toFixed(1));
+    const reviewsCount = 48 + ((index * 29 + blueprintIndex * 17) % 280);
+    const tags = buildTags(blueprint.category, index);
+    const badge = badgeFromTags(tags);
+    const gallery = buildGallery(blueprint.keywords[index % blueprint.keywords.length], id + 30);
+    const material = blueprint.materials[index % blueprint.materials.length];
+    const sizes = sizesByCategory[blueprint.category] || blueprint.sizes;
+    const isGiftBox = blueprint.category === 'Gift Boxes';
+
+    return {
+      id,
+      _id: `fallback-${id}`,
+      name,
+      title: name,
+      slug: slugify(name),
+      sku: `STJ-${String(id).padStart(4, '0')}`,
+      price,
+      salePrice: price,
+      oldPrice,
+      mrp: oldPrice,
+      category: blueprint.category,
+      subcategory: blueprint.subcategory,
+      description: `${name} is designed with ${material.toLowerCase()} and a refined feminine finish that feels premium, gift-worthy, and occasion-ready for Indian festive and bridal styling.`,
+      shortDescription: `Luxury ${blueprint.category.toLowerCase()} with premium detailing and polished gifting appeal.`,
+      material,
+      fabric: material,
+      rating,
+      reviewsCount,
+      reviews: reviewsCount,
+      badge,
+      status: 'active',
+      tags,
+      collections: [blueprint.category, ...tags],
+      images: gallery,
+      primaryImage: gallery[0],
+      secondaryImage: gallery[1],
+      sizes,
+      colorways: blueprint.colors,
+      features: [
+        `${material} for a polished luxury finish`,
+        'Lightweight enough for festive day-to-evening styling',
+        isGiftBox ? 'Presented in premium gifting-ready packaging' : 'Boutique-inspired detailing for elevated occasions',
+      ],
+      details: [
+        `${material} crafted for a premium look and comfortable wear`,
+        isGiftBox ? 'Curated multi-piece box suitable for gifting and special occasions' : 'Designed to pair beautifully with sarees, lehengas, kurtas, and fusion outfits',
+        'Finished with smooth edges, rich shine, and elevated boutique presentation',
+      ],
+      washCare: [
+        'Store in a dry zip pouch or box',
+        'Avoid perfumes, water, and harsh sprays',
+        'Wipe gently with a soft cloth after use',
+      ],
+      shipping: ['Free shipping on prepaid orders', 'Fast dispatch in 24-48 hours', '7-day easy return on eligible styles'],
+      offers: ['Flat 10% OFF on first order', 'Extra 5% OFF on prepaid checkout', 'Festive combo savings on selected styles'],
+      inventory: {
+        total: 6 + ((id * 7) % 18),
+        lowStockThreshold: 8,
+        sizes: sizes.map((size, sizeIndex) => ({
+          label: size,
+          stock: Math.max(2, 2 + ((id + sizeIndex * 3) % 8)),
+        })),
+      },
+      metrics: {
+        totalSold: 15 + ((id * 11) % 140),
+        views: 120 + ((id * 43) % 1400),
+        wishlisted: 8 + ((id * 5) % 120),
+      },
+      emi: price >= 1999 ? `EMI from ₹${Math.max(99, Math.round(price / 6))}/month` : 'Prepaid offers available at checkout',
+      stockLabel: tags.includes('limited') ? 'Limited pieces left in stock' : 'Ready to ship within 24 hours',
+    };
+  }),
+);
+
+export const announcements = ['Free Shipping Across India', 'Festive Jewelry Sale Live', 'Flat 50% OFF On Select Styles', 'New Luxe Drops Every Friday'];
 
 export const navLinks = [
-  { label: 'New In', href: '#new-arrivals' },
-  { label: 'Bestsellers', href: '#best-sellers' },
-  { label: 'Ethnic Luxe', href: '#premium-ethnic-collection' },
-  { label: 'Festive Edit', href: '#festival-special' },
-  { label: 'Accessories', href: '#instagram-feed' },
+  { label: 'New Arrivals', href: '#new-arrivals' },
+  { label: 'Trending', href: '#trending-now' },
+  { label: 'Bridal Collection', href: '#bridal-collection' },
+  { label: 'Gift Boxes', href: '#gift-boxes' },
+  { label: 'Korean Jewelry', href: '#korean-edit' },
 ];
 
 export const heroSlides = [
   {
-    id: 'elevated-ethnic',
-    image: products[4].images[0],
-    eyebrow: 'Luxury Ethnicwear',
-    title: 'The Festive Wardrobe, Reimagined For Effortless Glamour',
+    id: 'bridal-luxe',
+    image: products.find((product) => product.category === 'Bridal Collection')?.images[0],
+    eyebrow: 'Luxury Bridal Jewelry',
+    title: 'Grand Bridal Sparkle For The Modern Indian Celebration',
     description:
-      'Curated silhouettes, elevated fabrics, and rich feminine tones made for statement-making celebrations.',
-    badge: 'Summer Sale 50% OFF',
+      'Discover premium bridal sets, polki chokers, pearl layers, and heirloom-inspired statement pieces with elevated feminine styling.',
+    badge: 'Bridal Luxe Event',
   },
   {
-    id: 'soft-daywear',
-    image: products[1].images[2],
-    eyebrow: 'Day Luxe',
-    title: 'Airy Kurtis And Signature Sets For Modern Boutique Dressing',
+    id: 'festive-edit',
+    image: products.find((product) => product.category === 'Jhumkas')?.images[2],
+    eyebrow: 'Festive Edit',
+    title: 'Statement Jhumkas, Necklaces And Gift-Worthy Jewelry Drops',
     description:
-      'From floral classics to corset details, discover polished everyday looks with premium movement.',
-    badge: 'New Arrivals Live',
+      'From temple-finish jhumkas to pearl chokers and curated gift boxes, shop jewelry that feels rich, celebratory, and original.',
+    badge: 'Festival Collection Live',
   },
   {
-    id: 'premium-edit',
-    image: products[31].images[1],
-    eyebrow: 'Premium Collection',
-    title: 'A Crore-Level Storefront Feel For Your Most Elegant Looks',
+    id: 'daily-luxe',
+    image: products.find((product) => product.category === 'Korean Jewelry')?.images[1],
+    eyebrow: 'Everyday Premium',
+    title: 'Minimal Korean Jewelry Meets Indian Luxe Styling',
     description:
-      'Shop artisan-inspired pieces and premium accessories with couture-style detailing.',
-    badge: 'Limited Luxe Drop',
+      'A fresh, premium mix of bow earrings, anklets, delicate chains, and modern gifting pieces for daily elegance.',
+    badge: 'New Jewelry Drop',
   },
 ];
 
+const categoryCount = (category) => `${products.filter((product) => product.category === category).length} Styles`;
+const tagCount = (tag) => `${products.filter((product) => product.tags.includes(tag)).length} Picks`;
+
 export const categories = [
-  { title: 'Short Kurtis', image: products[0].images[0], count: '28 Styles' },
-  { title: 'Floral Kurtis', image: products[1].images[0], count: '16 Styles' },
-  { title: 'Kalamkari Collection', image: products[2].images[0], count: '12 Styles' },
-  { title: 'Corset Kurtis', image: products[3].images[0], count: '10 Styles' },
-  { title: 'Ethnic Wear', image: products[4].images[0], count: '22 Styles' },
-  { title: 'New Arrivals', image: products[13].images[0], count: '18 Styles' },
-  { title: 'Premium Collection', image: products[30].images[0], count: '14 Styles' },
-  { title: 'Accessories', image: products[18].images[0], count: '20 Styles' },
+  { title: 'Jhumkas', image: products.find((product) => product.category === 'Jhumkas')?.images[0], count: categoryCount('Jhumkas') },
+  { title: 'Oxidised Earrings', image: products.find((product) => product.category === 'Oxidised Earrings')?.images[0], count: categoryCount('Oxidised Earrings') },
+  { title: 'Necklaces', image: products.find((product) => product.category === 'Necklaces')?.images[0], count: categoryCount('Necklaces') },
+  { title: 'Rings', image: products.find((product) => product.category === 'Rings')?.images[0], count: categoryCount('Rings') },
+  { title: 'Bangles', image: products.find((product) => product.category === 'Bangles')?.images[0], count: categoryCount('Bangles') },
+  { title: 'Bridal Collection', image: products.find((product) => product.category === 'Bridal Collection')?.images[0], count: categoryCount('Bridal Collection') },
+  { title: 'Korean Jewelry', image: products.find((product) => product.category === 'Korean Jewelry')?.images[0], count: categoryCount('Korean Jewelry') },
+  { title: 'Gift Boxes', image: products.find((product) => product.category === 'Gift Boxes')?.images[0], count: categoryCount('Gift Boxes') },
+  { title: 'New Arrivals', image: products.find((product) => product.tags.includes('newArrival'))?.images[0], count: tagCount('newArrival') },
+  { title: 'Best Sellers', image: products.find((product) => product.tags.includes('bestSeller'))?.images[0], count: tagCount('bestSeller') },
 ];
 
 export const collectionConfigs = [
   {
     id: 'best-sellers',
     title: 'Best Sellers',
-    subtitle: 'Boutique favorites with polished silhouettes and timeless appeal.',
+    subtitle: 'Customer-loved earrings, necklace sets, rings, and bangles with strong boutique appeal.',
     tag: 'bestSeller',
   },
   {
     id: 'new-arrivals',
     title: 'New Arrivals',
-    subtitle: 'Fresh luxe drops curated for modern festive and everyday styling.',
+    subtitle: 'Fresh jewelry drops for festive gifting, bridal sparkle, and elevated everyday accessorising.',
     tag: 'newArrival',
   },
   {
     id: 'trending-now',
-    title: 'Trending Now',
-    subtitle: 'Fashion-forward edits inspired by premium social boutique stores.',
+    title: 'Trending Products',
+    subtitle: 'Premium social-first styles inspired by modern Indian jewelry boutiques and festive edits.',
     tag: 'trending',
   },
   {
-    id: 'summer-collection',
-    title: 'Summer Collection',
-    subtitle: 'Lightweight fabrics, breathable fits, and vacation-ready elegance.',
-    tag: 'summer',
+    id: 'festival-collection',
+    title: 'Festival Collection',
+    subtitle: 'Statement jhumkas, festive necklace sets, and celebration-ready sparkle for every Indian occasion.',
+    tag: 'festival',
   },
   {
-    id: 'under-rs-499',
-    title: 'Under ₹499',
-    subtitle: 'Accessible fashion picks that still feel elevated and beautifully styled.',
-    tag: 'under499',
+    id: 'bridal-collection',
+    title: 'Bridal Collection',
+    subtitle: 'Heirloom-inspired bridal jewelry with rich polki, pearls, and regal gold-toned finishing.',
+    tag: 'bridal',
   },
   {
-    id: 'premium-ethnic-collection',
-    title: 'Premium Ethnic Collection',
-    subtitle: 'Statement occasionwear with couture-inspired drape and detailing.',
-    tag: 'premium',
+    id: 'korean-edit',
+    title: 'Korean Jewelry',
+    subtitle: 'Minimal charm chains, pearl bows, and modern anklets with a luxe Korean-inspired finish.',
+    tag: 'korean',
   },
   {
-    id: 'buy-2-get-1-free',
-    title: 'Buy 2 Get 1 Free',
-    subtitle: 'Curated multi-buy picks for building a complete boutique wardrobe.',
-    tag: 'b2g1',
+    id: 'gift-boxes',
+    title: 'Combo Gift Boxes',
+    subtitle: 'Elegant gifting sets curated for birthdays, bridesmaids, festive hampers, and premium celebration gifting.',
+    tag: 'giftSet',
   },
   {
     id: 'limited-stock',
-    title: 'Limited Stock',
-    subtitle: 'Low-inventory luxe pieces worth checking out before they disappear.',
+    title: 'Limited Edition',
+    subtitle: 'Small-batch statement pieces and occasion styles that won’t stay in stock for long.',
     tag: 'limited',
-  },
-  {
-    id: 'festival-special',
-    title: 'Festival Special',
-    subtitle: 'Rich occasionwear, luminous embellishments, and celebration-ready sets.',
-    tag: 'festival',
   },
   {
     id: 'recommended-for-you',
     title: 'Recommended For You',
-    subtitle: 'Personalized boutique picks based on what shoppers are loving today.',
+    subtitle: 'Personalized jewelry picks based on what shoppers are saving, gifting, and styling right now.',
     tag: 'recommended',
   },
 ];
 
 export const customerReviews = [
   {
-    name: 'Ananya S.',
+    name: 'Ishita B.',
     city: 'Kolkata',
-    title: 'Beautiful premium feel',
-    body: 'The fabric falls beautifully and the finishing actually feels luxe. It looks even better in natural light than in the pictures.',
+    title: 'Looks like premium boutique jewelry',
+    body: 'The pearl necklace set arrived beautifully packed and the shine feels far more premium than the price. It photographed beautifully for my event.',
     rating: 5,
-    image: products[1].images[1],
+    image: products.find((product) => product.category === 'Necklaces')?.images[1],
     verified: true,
   },
   {
-    name: 'Megha P.',
+    name: 'Rupali K.',
     city: 'Mumbai',
-    title: 'Perfect festive purchase',
-    body: 'I wore the kurta set for an evening function and got compliments all night. The fit and color palette feel very boutique.',
+    title: 'Perfect festive earrings',
+    body: 'My jhumkas looked rich, lightweight, and festive without feeling overdone. They matched both my saree and my lehenga effortlessly.',
     rating: 5,
-    image: products[8].images[2],
+    image: products.find((product) => product.category === 'Jhumkas')?.images[2],
     verified: true,
   },
   {
-    name: 'Sritama D.',
-    city: 'Bengaluru',
-    title: 'Exactly like a premium store',
-    body: 'The experience feels polished from product page to checkout CTA. My floral kurti is soft, flattering, and worth it.',
-    rating: 5,
-    image: products[24].images[1],
-    verified: true,
-  },
-  {
-    name: 'Riya K.',
+    name: 'Sana R.',
     city: 'Delhi',
-    title: 'Love the styling',
-    body: 'The accessories section pairs so well with the outfits. My sling bag and festive set arrived looking amazing together.',
+    title: 'Bridal collection feels luxurious',
+    body: 'The bridal set had a polished finish, strong clasp quality, and a beautiful premium look in person. It elevated my full wedding guest outfit.',
+    rating: 5,
+    image: products.find((product) => product.category === 'Bridal Collection')?.images[1],
+    verified: true,
+  },
+  {
+    name: 'Megha T.',
+    city: 'Bengaluru',
+    title: 'Gift box was a hit',
+    body: 'I ordered a combo gift box for a friend and the packaging plus jewelry selection felt truly gift-worthy. It looked chic and expensive.',
     rating: 4,
-    image: products[18].images[2],
+    image: products.find((product) => product.category === 'Gift Boxes')?.images[1],
     verified: true,
   },
 ];
 
 export const ratingBreakdown = [
-  { label: '5 Star', value: 82 },
-  { label: '4 Star', value: 12 },
-  { label: '3 Star', value: 4 },
+  { label: '5 Star', value: 84 },
+  { label: '4 Star', value: 11 },
+  { label: '3 Star', value: 3 },
   { label: '2 Star', value: 1 },
   { label: '1 Star', value: 1 },
 ];
 
 export const instagramFeed = [
-  { id: 'insta-1', image: products[2].images[1], caption: 'Weekend artisanal edit' },
-  { id: 'insta-2', image: products[10].images[0], caption: 'Soft luxe neutrals' },
-  { id: 'insta-3', image: products[4].images[1], caption: 'Festive silhouette focus' },
-  { id: 'insta-4', image: products[13].images[2], caption: 'Mirror-work details' },
-  { id: 'insta-5', image: products[19].images[1], caption: 'Boutique moodboard' },
-  { id: 'insta-6', image: products[29].images[2], caption: 'Summer wardrobe refresh' },
+  { id: 'insta-1', image: products.find((product) => product.category === 'Jhumkas')?.images[1], caption: 'Festive jhumka styling' },
+  { id: 'insta-2', image: products.find((product) => product.category === 'Necklaces')?.images[2], caption: 'Pearl and gold moodboard' },
+  { id: 'insta-3', image: products.find((product) => product.category === 'Bridal Collection')?.images[2], caption: 'Bridal sparkle edit' },
+  { id: 'insta-4', image: products.find((product) => product.category === 'Korean Jewelry')?.images[2], caption: 'Soft minimal luxe' },
+  { id: 'insta-5', image: products.find((product) => product.category === 'Bangles')?.images[2], caption: 'Stacked gold moments' },
+  { id: 'insta-6', image: products.find((product) => product.category === 'Gift Boxes')?.images[2], caption: 'Gifting season ready' },
 ];
 
 export const recentPurchaseNotifications = [
-  'Ankita from Pune just purchased Zaria Mirror Work Kurti',
-  'Madhuri from Hyderabad added Hazel Potli Bag to her festive cart',
-  'Priyanka from Surat just checked out Noorani Premium Tissue Set',
-  'Shruti from Jaipur bought Amaira Mulmul Summer Set',
-  'Rupsa from Kolkata grabbed Sitara Sequined Festive Kurti',
+  `Ankita from Pune just purchased ${products[0].title}`,
+  `Riya from Jaipur added ${products[22].title} to her jewelry cart`,
+  `Priyanka from Surat just checked out ${products[55].title}`,
+  `Madhuri from Hyderabad bought ${products[71].title}`,
+  `Sneha from Kolkata grabbed ${products[95].title}`,
 ];
 
 export const serviceHighlights = [
   {
-    title: 'Luxury Finishing',
-    description: 'Elegant cuts, boutique-inspired fit, and premium finishing touches.',
+    title: 'Premium Finishing',
+    description: 'Luxury-tone metalwork, polished stone setting, and feminine boutique-level detailing.',
+  },
+  {
+    title: 'Gift-Ready Packaging',
+    description: 'Elegant presentation that feels elevated for bridal gifting, festive moments, and special occasions.',
   },
   {
     title: 'Fast Dispatch',
-    description: 'Next-day dispatch on most styles with free shipping on prepaid orders.',
-  },
-  {
-    title: 'Curated Styling',
-    description: 'Mix kurtis, festive sets, and accessories with a polished fashion-store vibe.',
+    description: 'Prepaid free shipping, quick handling, and smooth support for last-minute festive styling.',
   },
 ];
 
 export const saleDeadline = '2026-05-01T23:59:59+05:30';
 
 export const sizeChart = [
-  { size: 'XS', bust: '32', waist: '26', hip: '34' },
-  { size: 'S', bust: '34', waist: '28', hip: '36' },
-  { size: 'M', bust: '36', waist: '30', hip: '38' },
-  { size: 'L', bust: '38', waist: '32', hip: '40' },
-  { size: 'XL', bust: '40', waist: '34', hip: '42' },
+  { size: 'Adjustable', ring: 'Fits 6-8', bangle: 'Openable cuffs', notes: 'Best for rings, cuffs, and flexible styles' },
+  { size: 'Small', ring: '6', bangle: '2.4', notes: 'Ideal for slimmer wrists and compact ring fits' },
+  { size: 'Medium', ring: '7', bangle: '2.6', notes: 'Most common fit across statement jewelry' },
+  { size: 'Large', ring: '8', bangle: '2.8', notes: 'Recommended for roomy or stacked styling' },
 ];
 
 export const formatPrice = (value) =>
@@ -769,5 +608,9 @@ export const getProductBySlug = (slug) => products.find((product) => product.slu
 
 export const getRelatedProducts = (product) =>
   products
-    .filter((item) => item.id !== product.id && (item.category === product.category || item.tags.some((tag) => product.tags.includes(tag))))
+    .filter(
+      (item) =>
+        item.id !== product.id &&
+        (item.category === product.category || item.tags.some((tag) => product.tags.includes(tag))),
+    )
     .slice(0, 10);

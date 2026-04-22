@@ -56,7 +56,7 @@ export default function HeroCarousel() {
                     <ArrowRight className="h-4 w-4" />
                   </a>
                   <a
-                    href="#premium-ethnic-collection"
+                    href="#bridal-collection"
                     className="inline-flex items-center justify-center rounded-full border border-luxe-cocoa/15 bg-white/85 px-7 py-4 text-sm font-semibold text-luxe-charcoal transition hover:bg-white"
                   >
                     Explore Collection
@@ -66,8 +66,8 @@ export default function HeroCarousel() {
                 <div className="grid gap-4 rounded-[28px] border border-white/60 bg-white/65 p-5 backdrop-blur-sm sm:grid-cols-[1.1fr_0.9fr]">
                   <div>
                     <p className="text-xs uppercase tracking-[0.3em] text-luxe-mocha/70">Sale countdown</p>
-                    <p className="mt-2 font-display text-3xl text-luxe-espresso">Luxury summer event</p>
-                    <p className="mt-1 text-sm text-luxe-cocoa/70">Live now with boutique styling edits and limited festive drops.</p>
+                    <p className="mt-2 font-display text-3xl text-luxe-espresso">Luxury jewelry event</p>
+                    <p className="mt-1 text-sm text-luxe-cocoa/70">Live now with bridal sparkle, festive jhumkas, and curated gifting drops.</p>
                   </div>
                   <CountdownTimer targetDate={saleDeadline} />
                 </div>

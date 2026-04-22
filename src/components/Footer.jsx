@@ -7,7 +7,7 @@ export default function Footer() {
         <div>
           <p className="font-display text-4xl">Sayan Trendz</p>
           <p className="mt-4 max-w-md text-sm leading-7 text-white/70">
-            A luxury boutique destination for premium kurtis, ethnicwear, and accessories curated with elegant feminine tones and an elevated shopping feel.
+            A luxury boutique destination for Indian fashion jewelry, bridal sparkle, gifting edits, and elevated accessories curated with elegant feminine tones.
           </p>
           <div className="mt-6 flex items-center gap-3">
             {[Instagram, Facebook, Youtube].map((Icon) => (
@@ -50,7 +50,7 @@ export default function Footer() {
 
           <div className="mt-8 rounded-[26px] border border-white/10 bg-white/5 p-5">
             <p className="font-semibold">Newsletter Signup</p>
-            <p className="mt-2 text-sm text-white/60">Luxury launches, styling tips, and members-only sale access.</p>
+            <p className="mt-2 text-sm text-white/60">Jewelry launches, bridal styling tips, and members-only sale access.</p>
             <div className="mt-4 flex rounded-full bg-white/8 p-1">
               <input
                 type="email"

@@ -47,9 +47,9 @@ export function normalizeProduct(rawProduct) {
       (rawProduct.inventory?.total <= 8 ? 'Only a few pieces left' : 'Ready to ship within 24 hours'),
     description:
       rawProduct.description ||
-      'A boutique-inspired premium fashion piece designed with polished tailoring and luxurious finishing.',
+      'A premium jewelry piece designed with polished detailing, elegant shine, and boutique-inspired finishing.',
     details:
-      rawProduct.details || rawProduct.features || ['Premium boutique finish', 'Soft luxe handfeel', 'Flattering everyday-to-festive silhouette'],
+      rawProduct.details || rawProduct.features || ['Premium boutique finish', 'Refined jewelry detailing', 'Elegant styling from daily wear to festive occasions'],
     washCare:
       rawProduct.washCare || ['Gentle hand wash', 'Steam inside out', 'Do not bleach'],
     shipping:

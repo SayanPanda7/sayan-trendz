@@ -88,7 +88,7 @@ export default function LoginModal() {
               <p className="text-xs uppercase tracking-[0.34em] text-white/70">Members Access</p>
               <h2 className="mt-4 font-display text-5xl leading-none">Premium accounts, faster checkout</h2>
               <p className="mt-4 max-w-sm text-sm leading-7 text-white/75">
-                Firebase authentication, wishlist sync, order history, personalized recommendations, and members-only fashion drops.
+                Firebase authentication, wishlist sync, order history, personalized recommendations, and members-only jewelry drops.
               </p>
 
               <div className="mt-10 space-y-4">

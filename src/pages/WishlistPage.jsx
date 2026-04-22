@@ -13,7 +13,7 @@ export default function WishlistPage() {
     <PageTransition>
       <SeoMeta
         title="Wishlist | Sayan Trendz"
-        description="Review your saved luxury kurtis, premium ethnic wear, and boutique accessories on Sayan Trendz."
+        description="Review your saved jhumkas, necklaces, bridal sets, rings, bangles, and luxury jewelry picks on Sayan Trendz."
       />
 
       <main className="px-4 py-10 sm:px-6 lg:px-8">
@@ -30,7 +30,7 @@ export default function WishlistPage() {
           ) : (
             <div className="mt-10 rounded-[32px] border border-luxe-cocoa/10 bg-white/80 p-10 text-center shadow-soft dark:border-white/10 dark:bg-white/5">
               <p className="font-semibold text-luxe-charcoal dark:text-luxe-ink">Your luxury wishlist is empty right now.</p>
-              <p className="mt-2 text-sm text-luxe-cocoa/70 dark:text-luxe-ink/65">Save premium kurtis and accessories so they stay synced to your account.</p>
+              <p className="mt-2 text-sm text-luxe-cocoa/70 dark:text-luxe-ink/65">Save premium jewelry, bridal sets, and gift-worthy accessories so they stay synced to your account.</p>
               <button
                 type="button"
                 onClick={() => setLoginOpen(true)}

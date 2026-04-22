@@ -20,7 +20,7 @@ export default function StoreOverlays() {
           <OfferPopup
             key="newsletter"
             title="Luxury inbox perks"
-            description="Unlock first-order savings, new launch alerts, and boutique styling notes straight to your inbox."
+            description="Unlock first-order savings, bridal launch alerts, festive jewelry edits, and boutique gifting notes straight to your inbox."
             icon={<Mail className="h-5 w-5" />}
             cta="Join Newsletter"
             onClose={() => setNewsletterOpen(false)}
@@ -33,7 +33,7 @@ export default function StoreOverlays() {
           <OfferPopup
             key="exit-intent"
             title="Wait, your 10% boutique welcome offer is live"
-            description="Stay a little longer and explore our festive edits, premium kurtis, and accessory picks before you go."
+            description="Stay a little longer and explore our bridal sparkle, statement jhumkas, premium necklaces, and gift-worthy jewelry picks."
             icon={<Gift className="h-5 w-5" />}
             cta="Claim Offer"
             onClose={() => setExitIntentOpen(false)}

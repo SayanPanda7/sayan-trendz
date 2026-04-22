@@ -42,7 +42,7 @@ export default function SearchModal() {
                 type="text"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search premium kurtis, festive sets, accessories..."
+                placeholder="Search jhumkas, oxidised earrings, necklaces, bridal sets..."
                 className="w-full bg-transparent text-sm outline-none placeholder:text-luxe-mocha/45 dark:text-luxe-ink dark:placeholder:text-luxe-ink/35"
               />
               <button

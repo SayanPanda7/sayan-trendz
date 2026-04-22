@@ -1,4 +1,4 @@
-import { BarChart3, Boxes, PackageSearch, Plus, TicketPercent, UploadCloud } from 'lucide-react';
+import { BarChart3, Boxes, PackageSearch, Pencil, Plus, TicketPercent, Trash2, UploadCloud } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import PageTransition from '../../components/common/PageTransition';
 import SeoMeta from '../../components/common/SeoMeta';
@@ -10,16 +10,27 @@ import { formatPrice } from '../../data/store';
 const initialProductForm = {
   title: '',
   sku: '',
-  category: 'Premium Collection',
+  category: 'Jhumkas',
   mrp: 0,
   salePrice: 0,
   description: '',
   images: '',
-  tags: 'premium,newArrival',
-  sizes: 'S,M,L,XL',
-  badge: 'New Luxury Drop',
+  tags: 'newArrival,trending',
+  sizes: 'One Size',
+  badge: 'New',
   stock: 24,
 };
+
+const productCategories = [
+  'Jhumkas',
+  'Oxidised Earrings',
+  'Necklaces',
+  'Rings',
+  'Bangles',
+  'Bridal Collection',
+  'Korean Jewelry',
+  'Gift Boxes',
+];
 
 const initialCouponForm = {
   code: '',
@@ -41,6 +52,8 @@ export default function AdminDashboardPage() {
   const [uploading, setUploading] = useState(false);
   const [submittingProduct, setSubmittingProduct] = useState(false);
   const [submittingCoupon, setSubmittingCoupon] = useState(false);
+  const [editingProductId, setEditingProductId] = useState(null);
+  const [deletingProductId, setDeletingProductId] = useState(null);
 
   const loadAdminData = async () => {
     const [dashboardResponse, productsResponse, ordersResponse, couponsResponse] = await Promise.all([
@@ -97,36 +110,81 @@ export default function AdminDashboardPage() {
     }
   };
 
-  const handleCreateProduct = async () => {
+  const buildProductPayload = () => {
+    const sizeLabels = productForm.sizes
+      .split(',')
+      .map((label) => label.trim())
+      .filter(Boolean);
+
+    return {
+      title: productForm.title,
+      sku: productForm.sku,
+      category: productForm.category,
+      mrp: Number(productForm.mrp),
+      salePrice: Number(productForm.salePrice),
+      description: productForm.description,
+      badge: productForm.badge,
+      tags: productForm.tags.split(',').map((item) => item.trim()).filter(Boolean),
+      collections: productForm.tags.split(',').map((item) => item.trim()).filter(Boolean),
+      images: productForm.images.split(',').map((item) => item.trim()).filter(Boolean),
+      inventory: {
+        sizes: sizeLabels.map((label) => ({
+          label,
+          stock: Math.max(1, Math.floor(Number(productForm.stock) / Math.max(sizeLabels.length, 1))),
+        })),
+      },
+    };
+  };
+
+  const handleSaveProduct = async () => {
     setSubmittingProduct(true);
 
     try {
-      await apiRequest('/products', {
-        method: 'POST',
-        data: {
-          title: productForm.title,
-          sku: productForm.sku,
-          category: productForm.category,
-          mrp: Number(productForm.mrp),
-          salePrice: Number(productForm.salePrice),
-          description: productForm.description,
-          badge: productForm.badge,
-          tags: productForm.tags.split(',').map((item) => item.trim()).filter(Boolean),
-          collections: productForm.tags.split(',').map((item) => item.trim()).filter(Boolean),
-          images: productForm.images.split(',').map((item) => item.trim()).filter(Boolean),
-          inventory: {
-            sizes: productForm.sizes.split(',').map((label) => ({
-              label: label.trim(),
-              stock: Math.max(1, Math.floor(Number(productForm.stock) / Math.max(productForm.sizes.split(',').length, 1))),
-            })),
-          },
-        },
+      await apiRequest(editingProductId ? `/products/${editingProductId}` : '/products', {
+        method: editingProductId ? 'PATCH' : 'POST',
+        data: buildProductPayload(),
       });
 
       setProductForm(initialProductForm);
+      setEditingProductId(null);
       await loadAdminData();
     } finally {
       setSubmittingProduct(false);
+    }
+  };
+
+  const handleEditProduct = (product) => {
+    setEditingProductId(product._id);
+    setProductForm({
+      title: product.title,
+      sku: product.sku || '',
+      category: product.category,
+      mrp: product.mrp,
+      salePrice: product.salePrice,
+      description: product.description,
+      images: product.images?.join(',') || '',
+      tags: product.tags?.join(',') || '',
+      sizes: product.inventory?.sizes?.map((size) => size.label).join(',') || 'One Size',
+      badge: product.badge || 'New',
+      stock: product.inventory?.total || 12,
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    setDeletingProductId(productId);
+
+    try {
+      await apiRequest(`/products/${productId}`, {
+        method: 'DELETE',
+      });
+      if (editingProductId === productId) {
+        setEditingProductId(null);
+        setProductForm(initialProductForm);
+      }
+      await loadAdminData();
+    } finally {
+      setDeletingProductId(null);
     }
   };
 
@@ -180,13 +238,13 @@ export default function AdminDashboardPage() {
     <PageTransition>
       <SeoMeta
         title="Admin Dashboard | Sayan Trendz"
-        description="Manage products, orders, coupons, inventory, and analytics for the Sayan Trendz premium commerce platform."
+        description="Manage jewelry products, orders, coupons, inventory, and analytics for the Sayan Trendz premium commerce platform."
       />
 
       <main className="px-4 py-10 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <p className="text-xs uppercase tracking-[0.32em] text-luxe-mocha/70 dark:text-luxe-ink/55">Production Admin Suite</p>
-          <h1 className="mt-3 font-display text-5xl text-luxe-espresso dark:text-luxe-ink">Analytics, catalog, and order control</h1>
+          <h1 className="mt-3 font-display text-5xl text-luxe-espresso dark:text-luxe-ink">Analytics, jewelry catalog, and order control</h1>
 
           <div className="mt-8 grid gap-5 md:grid-cols-4">
             {[
@@ -215,7 +273,7 @@ export default function AdminDashboardPage() {
             <section className="rounded-[32px] border border-white/70 bg-white/80 p-6 shadow-soft dark:border-white/10 dark:bg-white/5">
               <div className="flex items-center gap-3">
                 <Plus className="h-5 w-5 text-luxe-cocoa dark:text-luxe-ink" />
-                <h2 className="font-display text-4xl text-luxe-espresso dark:text-luxe-ink">Product Upload System</h2>
+                <h2 className="font-display text-4xl text-luxe-espresso dark:text-luxe-ink">Add / Edit Jewelry Products</h2>
               </div>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {[
@@ -232,7 +290,19 @@ export default function AdminDashboardPage() {
                 ].map(([field, label, wide]) => (
                   <label key={field} className={wide ? 'sm:col-span-2' : ''}>
                     <span className="text-xs uppercase tracking-[0.26em] text-luxe-mocha/70 dark:text-luxe-ink/55">{label}</span>
-                    {field === 'description' ? (
+                    {field === 'category' ? (
+                      <select
+                        value={productForm[field]}
+                        onChange={(event) => setProductForm((current) => ({ ...current, [field]: event.target.value }))}
+                        className="mt-3 w-full rounded-[18px] border border-luxe-cocoa/10 bg-luxe-mist px-4 py-3 text-sm outline-none dark:border-white/10 dark:bg-white/8 dark:text-luxe-ink"
+                      >
+                        {productCategories.map((category) => (
+                          <option key={category} value={category}>
+                            {category}
+                          </option>
+                        ))}
+                      </select>
+                    ) : field === 'description' ? (
                       <textarea
                         value={productForm[field]}
                         onChange={(event) => setProductForm((current) => ({ ...current, [field]: event.target.value }))}
@@ -258,11 +328,23 @@ export default function AdminDashboardPage() {
                 </label>
                 <button
                   type="button"
-                  onClick={handleCreateProduct}
+                  onClick={handleSaveProduct}
                   className="rounded-full bg-luxe-charcoal px-5 py-3 text-sm font-semibold text-white dark:bg-luxe-ink dark:text-luxe-midnight"
                 >
-                  {submittingProduct ? 'Creating...' : 'Create Product'}
+                  {submittingProduct ? (editingProductId ? 'Saving...' : 'Creating...') : editingProductId ? 'Save Changes' : 'Create Product'}
                 </button>
+                {editingProductId ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingProductId(null);
+                      setProductForm(initialProductForm);
+                    }}
+                    className="rounded-full border border-luxe-cocoa/10 bg-white px-5 py-3 text-sm font-semibold text-luxe-charcoal dark:border-white/10 dark:bg-white/8 dark:text-luxe-ink"
+                  >
+                    Cancel Edit
+                  </button>
+                ) : null}
               </div>
             </section>
 
@@ -327,6 +409,56 @@ export default function AdminDashboardPage() {
               </div>
             </section>
           </div>
+
+          <section className="mt-8 rounded-[32px] border border-white/70 bg-white/80 p-6 shadow-soft dark:border-white/10 dark:bg-white/5">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.26em] text-luxe-mocha/65 dark:text-luxe-ink/55">Reusable Product Structure</p>
+                <h2 className="mt-2 font-display text-4xl text-luxe-espresso dark:text-luxe-ink">Product Library</h2>
+              </div>
+              <p className="max-w-md text-sm text-luxe-cocoa/70 dark:text-luxe-ink/65">
+                Edit or delete jewelry products quickly while keeping the catalog structure clean and scalable.
+              </p>
+            </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {products.slice(0, 12).map((product) => (
+                <article
+                  key={product._id}
+                  className="rounded-[24px] border border-luxe-cocoa/10 bg-luxe-mist p-4 dark:border-white/10 dark:bg-white/8"
+                >
+                  <img
+                    src={product.primaryImage}
+                    alt={product.title}
+                    className="aspect-[0.82] w-full rounded-[18px] object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <p className="mt-4 text-xs uppercase tracking-[0.24em] text-luxe-mocha/65 dark:text-luxe-ink/55">{product.category}</p>
+                  <h3 className="mt-2 font-semibold text-luxe-charcoal dark:text-luxe-ink">{product.title}</h3>
+                  <p className="mt-1 text-sm text-luxe-cocoa/70 dark:text-luxe-ink/65">{formatPrice(product.salePrice)}</p>
+                  <div className="mt-4 flex gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleEditProduct(product)}
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-luxe-charcoal px-4 py-3 text-sm font-semibold text-white dark:bg-luxe-ink dark:text-luxe-midnight"
+                    >
+                      <Pencil className="h-4 w-4" />
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteProduct(product._id)}
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-luxe-cocoa/10 bg-white px-4 py-3 text-sm font-semibold text-luxe-charcoal dark:border-white/10 dark:bg-white/5 dark:text-luxe-ink"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      {deletingProductId === product._id ? 'Deleting...' : 'Delete'}
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
 
           <div className="mt-8 grid gap-8 xl:grid-cols-[1.1fr_0.9fr]">
             <section className="rounded-[32px] border border-white/70 bg-white/80 p-6 shadow-soft dark:border-white/10 dark:bg-white/5">

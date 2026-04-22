@@ -1,6 +1,6 @@
 # Sayan Trendz
 
-Production-ready premium fashion eCommerce platform built with:
+Production-ready premium Indian jewelry and accessories eCommerce platform built with:
 
 - React + Vite
 - Tailwind CSS + Framer Motion

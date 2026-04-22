@@ -198,7 +198,7 @@ export default function ProductPage() {
                     onClick={() => setSizeChartOpen(true)}
                     className="text-sm font-semibold text-luxe-cocoa underline-offset-4 hover:underline dark:text-luxe-ink"
                   >
-                    Size Chart
+                    Size Guide
                   </button>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-3">
@@ -294,7 +294,7 @@ export default function ProductPage() {
           </div>
 
           <section className="mt-14 grid gap-8 lg:grid-cols-[1fr_1fr]">
-            <ContentBlock title="Fabric & Finish" items={[product.fabric, ...product.shipping]} />
+            <ContentBlock title="Material & Finish" items={[product.fabric, ...product.shipping]} />
             <div className="rounded-[30px] border border-white/70 bg-white/80 p-6 shadow-soft dark:border-white/10 dark:bg-white/5">
               <p className="text-xs uppercase tracking-[0.28em] text-luxe-mocha/70 dark:text-luxe-ink/55">Reviews</p>
               <h2 className="mt-3 font-display text-4xl text-luxe-espresso dark:text-luxe-ink">Styled and loved by shoppers</h2>
@@ -361,7 +361,7 @@ export default function ProductPage() {
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.28em] text-luxe-mocha/70 dark:text-luxe-ink/55">Size Chart</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-luxe-mocha/70 dark:text-luxe-ink/55">Jewelry Size Guide</p>
                     <h3 className="mt-2 font-display text-4xl text-luxe-espresso dark:text-luxe-ink">Find your best fit</h3>
                   </div>
                   <button
@@ -378,18 +378,18 @@ export default function ProductPage() {
                     <thead className="bg-luxe-charcoal text-white dark:bg-luxe-ink dark:text-luxe-midnight">
                       <tr>
                         <th className="px-4 py-3 font-semibold">Size</th>
-                        <th className="px-4 py-3 font-semibold">Bust</th>
-                        <th className="px-4 py-3 font-semibold">Waist</th>
-                        <th className="px-4 py-3 font-semibold">Hip</th>
+                        <th className="px-4 py-3 font-semibold">Ring</th>
+                        <th className="px-4 py-3 font-semibold">Bangle</th>
+                        <th className="px-4 py-3 font-semibold">Notes</th>
                       </tr>
                     </thead>
                     <tbody>
                       {sizeChart.map((row) => (
                         <tr key={row.size} className="border-t border-luxe-cocoa/10 bg-white dark:border-white/10 dark:bg-[#201915] dark:text-luxe-ink">
                           <td className="px-4 py-3 font-semibold text-luxe-charcoal dark:text-luxe-ink">{row.size}</td>
-                          <td className="px-4 py-3">{row.bust}</td>
-                          <td className="px-4 py-3">{row.waist}</td>
-                          <td className="px-4 py-3">{row.hip}</td>
+                          <td className="px-4 py-3">{row.ring}</td>
+                          <td className="px-4 py-3">{row.bangle}</td>
+                          <td className="px-4 py-3">{row.notes}</td>
                         </tr>
                       ))}
                     </tbody>
