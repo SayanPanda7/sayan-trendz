@@ -1,5 +1,38 @@
-const jewelryShot = (query, sig, width = 900, height = 1200) =>
-  `https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=${width}&auto=format&fit=crop`;
+const jewelryImages = {
+  Jhumkas: [
+    "https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=900&auto=format&fit=crop"
+  ],
+
+  "Oxidised Earrings": [
+    "https://images.unsplash.com/photo-1635767798638-3e25273a8236?q=80&w=900&auto=format&fit=crop"
+  ],
+
+  Necklaces: [
+    "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=900&auto=format&fit=crop"
+  ],
+
+  Rings: [
+    "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=900&auto=format&fit=crop"
+  ],
+
+  Bangles: [
+    "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=900&auto=format&fit=crop"
+  ],
+
+  "Bridal Collection": [
+    "https://images.unsplash.com/photo-1620656798579-1984d9e87df7?q=80&w=900&auto=format&fit=crop"
+  ],
+
+  "Korean Jewelry": [
+    "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=900&auto=format&fit=crop"
+  ],
+
+  "Gift Boxes": [
+    "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?q=80&w=900&auto=format&fit=crop"
+  ]
+};
+
+const gallery = buildGallery(blueprint.category);
 const slugify = (value) =>
   value
     .toLowerCase()
@@ -439,62 +472,50 @@ const tagCount = (tag) => `${products.filter((product) => product.tags.includes(
 export const categories = [
   {
     title: 'Jhumkas',
-    image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=800&auto=format&fit=crop',
-    count: categoryCount('Jhumkas'),
+    image: 'PASTE_JHUMKA_IMAGE_LINK',
+    count: categoryCount('Jhumkas')
   },
 
   {
     title: 'Oxidised Earrings',
-    image: 'https://images.unsplash.com/photo-1635767798638-3e25273a8236?q=80&w=800&auto=format&fit=crop',
-    count: categoryCount('Oxidised Earrings'),
+    image: 'PASTE_OXIDISED_IMAGE_LINK',
+    count: categoryCount('Oxidised Earrings')
   },
 
   {
     title: 'Necklaces',
-    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop',
-    count: categoryCount('Necklaces'),
+    image: 'PASTE_NECKLACE_IMAGE_LINK',
+    count: categoryCount('Necklaces')
   },
 
   {
     title: 'Rings',
-    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=800&auto=format&fit=crop',
-    count: categoryCount('Rings'),
+    image: 'PASTE_RING_IMAGE_LINK',
+    count: categoryCount('Rings')
   },
 
   {
     title: 'Bangles',
-    image: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=800&auto=format&fit=crop',
-    count: categoryCount('Bangles'),
+    image: 'PASTE_BANGLE_IMAGE_LINK',
+    count: categoryCount('Bangles')
   },
 
   {
     title: 'Bridal Collection',
-    image: 'https://images.unsplash.com/photo-1620656798579-1984d6b0a6c4?q=80&w=800&auto=format&fit=crop',
-    count: categoryCount('Bridal Collection'),
+    image: 'PASTE_BRIDAL_IMAGE_LINK',
+    count: categoryCount('Bridal Collection')
   },
 
   {
     title: 'Korean Jewelry',
-    image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800&auto=format&fit=crop',
-    count: categoryCount('Korean Jewelry'),
+    image: 'PASTE_KOREAN_IMAGE_LINK',
+    count: categoryCount('Korean Jewelry')
   },
 
   {
     title: 'Gift Boxes',
-    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=800&auto=format&fit=crop',
-    count: categoryCount('Gift Boxes'),
-  },
-
-  {
-    title: 'New Arrivals',
-    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=800&auto=format&fit=crop',
-    count: tagCount('newArrival'),
-  },
-
-  {
-    title: 'Best Sellers',
-    image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?q=80&w=800&auto=format&fit=crop',
-    count: tagCount('bestSeller'),
+    image: 'PASTE_GIFTBOX_IMAGE_LINK',
+    count: categoryCount('Gift Boxes')
   },
 ];
 export const collectionConfigs = [
