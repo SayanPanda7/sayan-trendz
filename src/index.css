@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-luxe-ivory font-body text-luxe-charcoal antialiased;
+    background-image:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.72), transparent 28%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(248, 242, 235, 1) 100%);
+  }
+
+  html.dark body {
+    color: #ece5dd;
+    background-image:
+      radial-gradient(circle at top left, rgba(255, 255, 255, 0.05), transparent 24%),
+      linear-gradient(180deg, rgba(18, 15, 13, 1) 0%, rgba(28, 23, 19, 1) 100%);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(92, 67, 53, 0.28) transparent;
+  }
+
+  ::selection {
+    background: rgba(92, 67, 53, 0.16);
+    color: #271c16;
+  }
+}
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .skeleton-block {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.55) 10%, rgba(235, 221, 209, 0.85) 35%, rgba(255, 255, 255, 0.55) 65%);
+    background-size: 1000px 100%;
+    animation: shimmer 1.8s linear infinite;
+  }
+
+  .dark .skeleton-block {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 10%, rgba(92, 67, 53, 0.35) 35%, rgba(255, 255, 255, 0.08) 65%);
+    background-size: 1000px 100%;
+  }
+}
